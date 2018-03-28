@@ -29,14 +29,19 @@ import static android.graphics.Color.rgb;
 public class PongGame implements Animator {
 
     // instance variables
-    private int xnums;
-    private int ynums;
     private boolean backwardsx = false; // whether clock is ticking backwards
-    private boolean backwardsy= false;
     Random rand = new Random();
+    int rColor=rand.nextInt(255);
+    int gColor=rand.nextInt(255);
+    int bColor=rand.nextInt(255);
     int speed= rand.nextInt(15);
+    boolean hitBrick=false;
+
+    //Paddle playPaddle= new Paddle();
 
     ArrayList<Ball>allBalls= new ArrayList<>();
+
+    ArrayList<Brick>allBricks= new ArrayList<>();
 
     @Override
     public int interval() {
@@ -80,7 +85,7 @@ public class PongGame implements Animator {
         g.drawRect(0f,0f,30f,1000f,wall);
         g.drawRect(0f,970f,1770f,1000f,wall);
         //paddle
-        g.drawRect(1750f,400f,1760f,600f,wall);
+        //g.drawRect(1750f,400f,1760f,600f,wall);
 
         //changing direction of ball
         for(Ball i: allBalls){
@@ -111,6 +116,11 @@ public class PongGame implements Animator {
             g.drawCircle(i.getxPos(), i.getyPos(), 20, wall);
         }
 
+        for(Brick i: allBricks){
+            g.drawRect(i.getbStartX(),i.getbStartY(),i.getbEndX(),
+                    i.getbEndY(),wall);
+        }
+
     }
 
     @Override
@@ -118,11 +128,7 @@ public class PongGame implements Animator {
         //when user clicks mouse or touches tablet a new ball is drawn
         if (event.getAction() == MotionEvent.ACTION_DOWN)
         {
-            allBalls.add(new Ball(rand.nextInt(15)+5,rand.nextInt(15)+5,
-                    rand.nextInt(15)+5,rand.nextBoolean(),
-                    rand.nextBoolean()));
-        }
 
+        }
     }
 }
-
