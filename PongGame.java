@@ -108,6 +108,7 @@ public class PongGame implements Animator {
                     ySpot<midPaddleAI+midPadToEnd){i.changexBackwards();}}
             if(xSpot>1740){if(ySpot>midPaddle-midPadToEnd &&
                     ySpot<midPaddle+midPadToEnd){i.changexBackwards();}}
+
             if(xSpot>1760){i.randCount(rand.nextInt(15)+5,
                     rand.nextInt(15)+5);
             }
