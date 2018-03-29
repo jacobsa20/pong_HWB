@@ -48,7 +48,7 @@ public class Paddle {
     public int getStartY() {return pStartY;}
     public double getInitMid(){return initMid;}
     public double getInitMTE() {return initMTE;}
-    public int getSpeed() {return speed;}
+    public int getSpeed(int i) {return speed;}
 
     public void setEndX(int endX) {this.pEndX = endX;}
     public void setEndY(int endY) {this.pEndY = endY;}

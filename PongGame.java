@@ -112,10 +112,10 @@ public class PongGame implements Animator {
                     rand.nextInt(15)+5);
             }
             if(midPaddleAI<ySpot){
-                paddleAI.getSpeed();
+                paddleAI.getSpeed(20);
             }
             else if(midPaddleAI>ySpot){
-
+                paddleAI.getSpeed(-20);
             }
         }
         //draws the balls
@@ -139,7 +139,7 @@ public class PongGame implements Animator {
     public void onTouch(MotionEvent event) {
         //ability to move paddle
         int pos=event.getActionMasked();
-        midPaddleAI=(int) event.getY();
+       // midPaddleAI=(int) event.getY();
         switch(pos) {
             case MotionEvent.ACTION_DOWN:
                 midPaddle = (int) event.getY();
