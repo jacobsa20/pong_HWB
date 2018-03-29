@@ -111,9 +111,7 @@ public class PongGame implements Animator {
             if(xSpot>1760){i.randCount(rand.nextInt(15)+5,
                     rand.nextInt(15)+5);
             }
-            if(midPaddleAI<ySpot){
-                paddleAI.getSpeed(20);
-            }
+            if(midPaddleAI<ySpot){paddleAI.getSpeed(20);}
             else if(midPaddleAI>ySpot){
                 paddleAI.getSpeed(-20);
             }
