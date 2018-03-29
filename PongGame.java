@@ -23,7 +23,7 @@ import static android.graphics.Color.rgb;
  * Resource: TestAnimator code by Nux and Vegdahl.
  * Solution: I used the code present
  * (I don't know if this is citation worthy, but better safe
- * than sorry!!)
+ * than sorry!)
  */
 
 public class PongGame implements Animator {
