@@ -31,17 +31,17 @@ public class PongGame implements Animator {
     // instance variables
     private boolean backwardsx = false; // whether clock is ticking backwards
     Random rand = new Random();
-    int rColor=rand.nextInt(255);
-    int gColor=rand.nextInt(255);
-    int bColor=rand.nextInt(255);
+    int rColor=rand.nextInt(256);
+    int gColor=rand.nextInt(256);
+    int bColor=rand.nextInt(256);
     int speed= rand.nextInt(15);
-    boolean hitBrick=false;
+    int midPaddle=500;// midpoint of paddle
+    int midPaddleAI= 500;// midpoint of AI paddle
+    int midPadToEnd=100;//distance from middle of paddle to edge
 
-    //Paddle playPaddle= new Paddle();
 
     ArrayList<Ball>allBalls= new ArrayList<>();
-
-    ArrayList<Brick>allBricks= new ArrayList<>();
+    Paddle paddleAI= new Paddle(30,midPaddle-100,40,midPaddle+100);
 
     @Override
     public int interval() {
@@ -76,16 +76,16 @@ public class PongGame implements Animator {
                     rand.nextBoolean(),rand.nextBoolean()));
         }
 
-      //  int j= rand.nextInt(1000);
         Paint wall= new Paint();
         wall.setColor(Color.WHITE);
         //I hard coded the sizes of the walls because I wanted the game to be
         //smaller than the height of the screen
         g.drawRect(0f,0f,1770f,30f,wall);
-        g.drawRect(0f,0f,30f,1000f,wall);
+        g.drawRect(30f,midPaddle-100,40f,midPaddle+100,wall);
         g.drawRect(0f,970f,1770f,1000f,wall);
         //paddle
-        //g.drawRect(1750f,400f,1760f,600f,wall);
+        wall.setColor(Color.MAGENTA);
+        g.drawRect(1750f,midPaddle-100,1760f,midPaddle+100,wall);
 
         //changing direction of ball
         for(Ball i: allBalls){
@@ -103,32 +103,51 @@ public class PongGame implements Animator {
             i.setxPos(xSpot);
             i.setyPos(ySpot);
             //ensures balls bounce off walls
-            if(ySpot>1000 || ySpot<30){i.changeyBackwards();}
-            if(xSpot<30){i.changexBackwards();}
-            if(xSpot>1740){if(ySpot>400 && ySpot<600){i.changexBackwards();}}
+            if(ySpot>970 || ySpot<30){i.changeyBackwards();}
+            if(xSpot<50){if (ySpot>midPaddleAI-midPadToEnd &&
+                    ySpot<midPaddleAI+midPadToEnd){i.changexBackwards();}}
+            if(xSpot>1740){if(ySpot>midPaddle-midPadToEnd &&
+                    ySpot<midPaddle+midPadToEnd){i.changexBackwards();}}
             if(xSpot>1760){i.randCount(rand.nextInt(15)+5,
                     rand.nextInt(15)+5);
+            }
+            if(midPaddleAI<ySpot){
+                paddleAI.getSpeed();
+            }
+            else if(midPaddleAI>ySpot){
+
             }
         }
         //draws the balls
         for(Ball i: allBalls){
-            wall.setColor(rgb(255, 122, 186));
+            wall.setColor(rgb(rColor,gColor,bColor));
             g.drawCircle(i.getxPos(), i.getyPos(), 20, wall);
-        }
-
-        for(Brick i: allBricks){
-            g.drawRect(i.getbStartX(),i.getbStartY(),i.getbEndX(),
-                    i.getbEndY(),wall);
         }
 
     }
 
+    /**
+     * EXTERNAL CITATION
+     * Date: 3/28/2018
+     * Problem: I couldn't get the paddle to move and still enforce
+     * the bouncing off rule
+     * Resource: Chris Fishback
+     * Solution: He informed me of https://developer.android.com/training/
+     * gestures/movement.html where I copied the code present
+     */
     @Override
     public void onTouch(MotionEvent event) {
-        //when user clicks mouse or touches tablet a new ball is drawn
-        if (event.getAction() == MotionEvent.ACTION_DOWN)
-        {
-
+        //ability to move paddle
+        int pos=event.getActionMasked();
+        midPaddleAI=(int) event.getY();
+        switch(pos) {
+            case MotionEvent.ACTION_DOWN:
+                midPaddle = (int) event.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                midPaddle = (int) event.getY();
+                break;
         }
+
     }
 }

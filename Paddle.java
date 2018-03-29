@@ -14,31 +14,41 @@ public class Paddle {
     private int pStartY;
     private int pEndX;
     private int pEndY;
-    Paint padCol= new Paint();
 
-    public Paddle(int initStartXp, int initStartYp, int initEndXp,
-                       int initEndYp, int initMid, int initMTE) {
+    private double initMid;//middle of paddle
+    private double initMTE;//middle to either end of paddle
 
-        initStartXp = pStartX;
-        initStartYp = pStartY;
-        initEndXp = pEndX;
-        initEndYp = pEndY;
+    private int speed;
+
+    public Paddle(int initStartX, int initStartY, int initEndX,
+                       int initEndY) {
+
+        pStartX=initStartX;
+        pStartY=initStartY;
+        pEndX=initEndX;
+        pEndY=initEndY;
         initMid = (pEndY-pStartY)/2;
         initMTE = initMid-pStartY;
     }
-    public boolean paddleMove(){
 
+    public boolean paddleMove(){
         return false;
     }
-    public void drawPaddle(Canvas g){
-        padCol.setColor(Color.CYAN);
-        g.drawRect(pStartX,pStartY,pEndX,pEndY,padCol);
+
+    public void newPos(int pos){
+        initMid= pos;
+        pStartY=pos-(int) initMTE;
+        pEndY= pos+(int) initMTE;
     }
 
+    //getters and setters
     public int getEndX() {return pEndX;}
     public int getEndY() {return pEndY;}
     public int getStartX() {return pStartX;}
     public int getStartY() {return pStartY;}
+    public double getInitMid(){return initMid;}
+    public double getInitMTE() {return initMTE;}
+    public int getSpeed() {return speed;}
 
     public void setEndX(int endX) {this.pEndX = endX;}
     public void setEndY(int endY) {this.pEndY = endY;}
