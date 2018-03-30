@@ -31,8 +31,8 @@ public class Paddle {
         initMTE = initMid-pStartY;
     }
 
-    public boolean paddleMove(){
-        return false;
+    public void paintPaddle(Canvas g, Paint paddleCol){
+        g.drawRect(pStartX,pStartY,pEndX,pEndY,paddleCol);
     }
 
     public void newPos(int pos){

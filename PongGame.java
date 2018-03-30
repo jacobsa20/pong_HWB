@@ -41,7 +41,10 @@ public class PongGame implements Animator {
 
 
     ArrayList<Ball>allBalls= new ArrayList<>();
-    Paddle paddleAI= new Paddle(30,midPaddle-100,40,midPaddle+100);
+    Paddle paddleAI= new Paddle(30,midPaddle-midPadToEnd,40,
+            midPaddle+midPadToEnd);
+    Paddle paddleUser=new Paddle(1750,midPaddle-midPadToEnd,1760,
+            midPaddle+midPadToEnd);
 
     @Override
     public int interval() {
@@ -81,11 +84,12 @@ public class PongGame implements Animator {
         //I hard coded the sizes of the walls because I wanted the game to be
         //smaller than the height of the screen
         g.drawRect(0f,0f,1770f,30f,wall);
-        g.drawRect(30f,midPaddle-100,40f,midPaddle+100,wall);
         g.drawRect(0f,970f,1770f,1000f,wall);
-        //paddle
+        //AI paddle
+        paddleAI.paintPaddle(g,wall);
+        //User paddle
         wall.setColor(Color.MAGENTA);
-        g.drawRect(1750f,midPaddle-100,1760f,midPaddle+100,wall);
+        paddleUser.paintPaint(g,wall);
 
         //changing direction of ball
         for(Ball i: allBalls){
